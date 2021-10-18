@@ -1,4 +1,3 @@
-// import { Axios } from "axios";
 import { React, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 
@@ -6,21 +5,28 @@ import Nav from "./Nav";
 import Routes from "./Routes";
 import GetDogsInfo from "./GetDogsInfo";
 
+/**
+ * App retrieves info from the database and shows the /dogs page
+ * 
+ * State: dogInfo 
+ * Props: None
+ * 
+ * App -> {Nav, Routes, GetDogsInfo}
+ */
+
 function App() {
   const [dogInfo, setDogInfo] = useState(null);
 
+  /** Sets dogInfo state based on information from the db */
   function updateDogs(dogs) {
-    console.log('updateDogs is running', dogs);
     setDogInfo(dogs);
-    console.log('passed setDogInfo')
   }
-
 
   return (
     <div>
       {
         (dogInfo)
-          ? <div c lassName="App">
+          ? <div className="App">
             <BrowserRouter>
               <Nav dogs={dogInfo} />
               <Routes dogs={dogInfo}/>

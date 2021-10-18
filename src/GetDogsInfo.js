@@ -19,12 +19,11 @@ function GetDogsInfo({ updateDogs }) {
         </h2>
     )
 }
-
+// Move to app.js and create a state for loaded and calls GetDogs function
 /** Calls api to get dog info for App.js. After response is received,
  *  Calls the updateDogs function.
  */
 async function _getDogRequest(updateDogs) {
-    console.log('_getDogRequest is running');
     const response = await axios.get(DOG_API_URL);
     const dogs = response.data;
     updateDogs(dogs);
