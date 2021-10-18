@@ -3,17 +3,20 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import DogList from "./DogList";
 import DogDetails from "./DogDetails";
 
-function Routes() {
+/** Routing for components for each URL
+ * 
+ */
+function Routes({ dogs }) {
     return (
         <Switch>
             <Route exact path="/dogs">
-                <DogList />
+                <DogList dogs={dogs}/>
             </Route>
-            <Route exact path="/dogs/:name">
-                <DogDetails />
-            </Route>
+            {/* <Route exact path="/dogs/:name">
+                <DogDetails dogs={dogs}/>
+            </Route> */}
             <Redirect to="/dogs" />
-      </Switch>
+        </Switch>
     );
 }
 
