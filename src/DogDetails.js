@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 
 /** Renders the details for each dog
  *  
@@ -8,14 +8,17 @@ import { useParams } from "react-router-dom";
  * 
  *  Route -> DogDetails
  */
-// check if dog is defined and return a redirect inside this component.
-// you can also use .find instead because it is more efficient because it stops as soon as it finds something.  It returns the item not an array.
 function DogDetails({dogs}) {
     const { name } = useParams();
-    const dog = dogs.find(dog => dog.name === name);
+    const dog = dogs.find(dog => dog.name.toLowerCase() === name);
+
+    if (dog === undefined) {
+        return <Redirect to="/dogs"/>
+    }
+
     return (
         <div>
-            <h3>{dog.name}</h3>
+            <h3>Details about {dog.name}</h3>
             <img 
                 src={`/${dog.src}.jpg`}
                 alt={`cute pic of ${dog.name}`}

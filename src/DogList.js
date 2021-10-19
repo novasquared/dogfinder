@@ -11,6 +11,7 @@ import './DogList.css';
 function DogList({ dogs }) {
     return (
         <div>
+        <h2>Dogs available for adoption! </h2>
             {
                 dogs.map(dog => {
                     return (

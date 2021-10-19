@@ -3,7 +3,9 @@ import { BrowserRouter } from "react-router-dom";
 
 import Nav from "./Nav";
 import Routes from "./Routes";
-import GetDogsInfo from "./GetDogsInfo";
+import axios from 'axios';
+
+const DOG_API_URL = 'http://localhost:5000/dogs';
 
 /**
  * App retrieves info from the database and shows the /dogs page
@@ -16,23 +18,33 @@ import GetDogsInfo from "./GetDogsInfo";
 
 function App() {
   const [dogInfo, setDogInfo] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  /** Sets dogInfo state based on information from the db */
-  function updateDogs(dogs) {
-    setDogInfo(dogs);
+
+  /** Calls api to get dog info for App.js. After response is received,
+ */
+  async function getDogRequest() {
+    console.log('getDogsRequest is running')
+    const response = await axios.get(DOG_API_URL);
+    const dogs = response.data;
+    setDogInfo(dogs); //update dogInfo
+    setIsLoading(false);
+  }
+  
+  if (isLoading === true) {
+    getDogRequest();
+    return (<h2>Loading...</h2>)
   }
 
   return (
     <div>
       {
-        (dogInfo)
-          ? <div className="App">
+        <div className="App">
             <BrowserRouter>
               <Nav dogs={dogInfo} />
-              <Routes dogs={dogInfo}/>
+              <Routes dogs={dogInfo} />
             </BrowserRouter>
           </div>
-          : <GetDogsInfo updateDogs={updateDogs} /> //get the info, show loading, update the state
       }
     </div>
   )
